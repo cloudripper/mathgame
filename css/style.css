@@ -1,0 +1,75 @@
+body {
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: 300;
+    color: azure;
+}
+
+.bgimg {
+    max-width: 100%;
+    height: 100vh;
+    overflow-y: hidden;
+    background-image: url('bgimg.jpg');
+    background-size: cover;
+}
+
+.probContainer {
+    width: 50%;
+    background-color: rgba(0,0,0,.5);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.actionTitle {
+    font-size: 20px;
+}
+
+.scoreBox {
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: right;
+    font-weight: 700;
+}
+
+.scoreContainer {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: right;
+    background-color: rgba(255,255,255,.60);
+}
+
+.contactLinks {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.dotFormat {
+    text-align: center;
+    color: rgba(0,0,0,.5);
+    font-size: 0.7rem;
+}
+
+.brand {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+.fontMod {
+    font-size: 0.8rem;  
+    color: rgba(0,0,0,.5);
+    font-weight: 700;
+ }
+ 
