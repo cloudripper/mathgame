@@ -1,15 +1,16 @@
 $('document').ready(function () {
+    highScoreAJAX();
     $('body').on('click', '#startGameButton', function (event) {
         sec = 10;
         startGame();
     });
     
     $('body').on('click', '#addItem', function (event) {
-            input();
+        input();
     });
 });
 
-var numRange = _.range(2,100);
+var numRange = _.range(1,100);
 var op = '+';
 var probProcess = {
     '+': function (x, y) { return x + y },
@@ -20,12 +21,50 @@ var probProcess = {
 var maxSum = '10';
 var problemSum = 0;
 var userScore = 0;
-var highScore = 0;
+var highScore;
 var sec = 0;
 var timer = null;
 
+var highScoreAJAX = function () {
+    $.ajax({
+        type: 'GET',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/3576?api_key=213',
+        dataType: 'json',
+        success: function (response, textStatus) {
+            console.log(response.task['content']);
+            highScore = parseInt(response.task['content']);
+            console.log(highScore);
+            $('#topScore').html(highScore);
+        },
+        error: function (request, textStatus, errorMessage) {
+            console.log(errorMessage);
+        }
+    });
+};
+
+var highScorePUT = function () {
+    $.ajax({
+        type: 'PUT',
+        url: 'https://altcademy-to-do-list-api.herokuapp.com/tasks/3576?api_key=213',
+        contentType: 'application/JSON',
+        dataType: 'json',
+        data: JSON.stringify({
+            task: {
+                content: highScore,
+            }
+        }),
+        success: function (response, textStatus) {
+            console.log(response.task['content']);
+        },
+        error: function (request, textStatus, errorMessage) {
+            console.log(errorMessage);
+        }
+    });
+};
+
 
 var input = function () {
+
         var input = parseInt($('#inputAnswer').val());
         $('#inputAnswer').attr("placeholder", "Answer");
 
@@ -45,6 +84,9 @@ var startGame = function () {
    
     $('#startGameButton').remove();
     $('div .startBtn').append('<div class="input-group-prepend inputButton"><button class="btn border border-light rounded-left py-0 " type="button" id="addItem">=</button></div><input type="number" name="task" placeholder="Answer" class="pl-2 border border-light border-left-0 rounded-right inputStyle inputButton" id="inputAnswer"/>');
+    userScore = 0;
+    $('#gameScore').html(userScore);
+    highScoreAJAX();
     startTimer();
     problem();
     $('#inputAnswer').focus(function () {
@@ -97,36 +139,42 @@ var solve = function(answer) {
     problem();
 };
 
-var endGame = function () {
-    window.clearInterval(timer);
-    timer = null;
-    
-    $('.inputButton').remove();
-    $('div .startBtn').append('<div class="input-group-prepend" id="startGameButton"><button class="btn border border-light rounded py-0 " type="button">Play Again?</button></div>');
-    $('body').off('keydown');
-    
-    if (userScore = highScore) {
-        $('#announceBox').html('<span class="border border-light rounded px-2 py-1" id="tieHigh">You scored ' + userScore + '! You tied the all-time High Score! Nice work.</span>');
+var scoreEval = function (user, high) {
+    if (user == high) {
+        $('#announceBox').html('<span class="border border-light rounded px-2 py-1" id="tieHigh">You scored ' + userScore + '! You tied the all-time High Score!</span>');
         var timeout = setTimeout(function () {
             $('#tieHigh').remove();
         }, 8000);
     }
-    if (userScore < highScore) {
-        $('#announceBox').html('<span class="border border-light rounded px-2 py-1" id="noHigh">You scored ' + userScore + '! The all-time High Score is' + highScore + '.</span>');
+    if (user < high) {
+        $('#announceBox').html('<span class="border border-light rounded px-2 py-1" id="noHigh">You scored ' + userScore + '! The all-time High Score is ' + highScore + '.</span>');
         var timeout = setTimeout(function () {
             $('#noHigh').remove();
         }, 8000);
     }
-    if (userScore > highScore) {
-        
+    if (user > high) {
         $('#announceBox').html('<span class="border border-light rounded px-2 py-1" id="newHigh">You set a new High Score of ' + userScore + '!</span>');
         var timeout = setTimeout(function () {
             $('#newHigh').remove();
         }, 8000);
         highScore = userScore; 
+        $('#topScore').html(highScore)
+        highScorePUT();
     }
+    console.log('high score: ' + high + '. user Score: ' + user);
+}
+
+var endGame = function () {
+    window.clearInterval(timer);
+    timer = null;
+    scoreEval(userScore, highScore);
+
+    $('.inputButton').remove();
+    $('div .startBtn').append('<div class="input-group-prepend" id="startGameButton"><button class="btn border border-light rounded py-0 " type="button">Play Again?</button></div>');
+    $('body').off('keydown');
     
 };
+
 
 var startTimer = function () {
     if (!timer) {
