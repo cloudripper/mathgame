@@ -24,11 +24,13 @@ body {
 }
 
 .scoreBox {
-    width: 25%;
+    width: 33%;
     margin-left: auto;
     margin-right: auto;
     text-align: right;
     font-weight: 700;
+    background-color: rgba(0, 86, 179, 0.4);
+    color: rgb(255, 255, 255);
 }
 
 .scoreContainer {
@@ -37,7 +39,53 @@ body {
     margin-right: auto;
 }
 
+.inputStyle {
+    color: white;
+    font-weight: 500;
+    background-color: rgba(0,0,0,.5);
+    width: 130px;
+}
 
+#startGameButton {
+    width: 100px;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: rgba(255,255,255,.60);
+}
+
+
+
+#addItem {
+    color: #0056b3;
+    font-weight: 700;
+    font-size: 25px;
+    background-color: rgba(255,255,255,.60);
+}
+
+#addItem:hover {
+    background-color: rgba(255,255,255,.80);
+    color: #0056b3;
+}
+
+#correct {
+    background-color: rgba(140,203,146,.5) !important;
+}
+
+#incorrect {
+    background-color: rgba(181,4,4,.5) !important;
+}
+
+#newHigh {
+    background-color: rgba(140,203,146,.5) !important;
+}
+
+#noHigh {
+    background-color: rgba(181,4,4,.5) !important;
+}
+
+#tieHigh {
+    background-color: rgba(0, 86, 179, 0.4) !important;
+}
 
 .footer {
     position: fixed;

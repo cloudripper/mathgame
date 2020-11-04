@@ -28,17 +28,25 @@
             <div class="flex-item pt-4 pl-4">
                 <h3 class="actionTitle">Solve this Problem:</h3>
             </div>
-            <div class="flex-item text-center py-4">
-                <h3><span class="mathProblem px-4 py-3 border border-light rounded">3 + 1</span></h3>
+            <div class="flex-item pt-4">
+                <h3 class="actionTitle text-center" id="announceBox"></h3>
             </div>
-            <div class="flex-item text-center pb-3">
-                <input  id="answerInput" type="number" placeholder="Think Fastly - what is your answer?"/>
-                <p class="pt-3 pr-4 mb-0 text-right">Time Remaining: <span class="solveTime"></span></p>
+            <div class="flex-item text-center py-4">
+                <h3><span class="mathProblem px-4 py-3 border border-light rounded">X + Y</span></h3>
+            </div>
+            <div class="input-group flex-item justify-content-center pb-3 startBtn">
+                <div class="input-group-prepend" id="startGameButton">
+                    <button class="btn border border-light rounded py-0 " type="button" >Start Game</button>
+                </div>
+                
+            </div>
+            <div class="flex-item text-right pb-3">
+                <p class="pt-3 pr-4 mb-0 ">Time Remaining: <span id="solveTime">10</span></p>
             </div>
         </div>
         <div class="scoreContainer d-flex flex-column justify-content-right mt-5"></div>
-            <div class="flex-item scoreBox">
-                <p class=>Current Score: <span id="gameScore"></span></p>
+            <div class="flex-item scoreBox pr-3 border border-light rounded pt-3">
+                <p class=>Current Score: <span id="gameScore">0</span></p>
                 <p>Think Fastly All-Time High Score: <span id="highScore"></span></p>
             </div>
         </div>
